@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}目標の編集{% endblock %}
+
+{% block content %}
+<h1>目標の編集</h1>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">タイトル</label>
+        {{ form.title }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">詳細</label>
+        {{ form.description }}
+    </div>
+    <button type="submit" class="btn btn-success">保存</button>
+</form>
+
+<a href="{% url 'goals:goal_list' %}">キャンセル</a>
+{% endblock %}

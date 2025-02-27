@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}中長期目標{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">中長期目標</h1>
+
+{% if goal %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ goal.title }}</h2>
+            <p class="card-text">{{ goal.description }}</p>
+        </div>
+    </div>
+{% else %}
+    <p class="text-muted">目標が設定されていません。</p>
+{% endif %}
+
+{% if user.is_staff %}
+    <a href="{% url 'goals:edit_goal' %}" class="btn btn-warning mt-3">目標を編集</a>
+{% endif %}
+{% endblock %}
+
+
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block title %}中長期目標{% endblock %}
+
+{% block content %}
+<h1>中長期目標</h1>
+
+{% if goal %}
+    <h2>{{ goal.title }}</h2>
+    <p>{{ goal.description }}</p>
+{% else %}
+    <p>目標が設定されていません。</p>
+{% endif %}
+
+{% if user.is_staff %}
+    <a href="{% url 'goals:edit_goal' %}">目標を編集</a>
+{% endif %}
+{% endblock %} {% endcomment %}

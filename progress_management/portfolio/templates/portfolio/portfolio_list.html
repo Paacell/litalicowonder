@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}ポートフォリオ管理{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">ポートフォリオ管理</h1>
+
+<a href="{% url 'portfolio:public_portfolio_list' %}" class="btn btn-outline-primary">公開ポートフォリオを見る</a>
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#portfolioModal">ポートフォリオを追加</button>
+
+<div class="modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="portfolioModalLabel">ポートフォリオを追加</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div>
+            <div class="modal-body">
+                <form id="portfolioForm" method="post" action="{% url 'portfolio:add_portfolio' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">追加</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    {% for project in projects %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    {% if project.image %}
+                        <br><img src="{{ project.image.url }}" alt="{{ project.title }}" width="150">
+                    {% endif %}
+                    <p>
+                        <strong>公開設定: </strong>
+                        {% if project.is_public %}
+                            <span class="text-success">公開</span>
+                        {% else %}
+                            <span class="text-danger">非公開</span>
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'portfolio:edit_portfolio' project.id %}" class="btn btn-outline-warning">編集</a>
+                    <a href="{% url 'portfolio:delete_portfolio' project.id %}" class="btn btn-outline-danger">削除</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">まだポートフォリオが登録されていません。</p>
+    {% endfor %}
+</div>
+
+
+
+{% comment %} <button onclick="document.getElementById('portfolio-form').style.display='block'">
+    制作物を追加
+</button>
+
+<!-- ポップアップフォーム -->
+<div id="portfolio-form" style="display:none;">
+    <form method="post" action="{% url 'portfolio:add_portfolio' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">追加</button>
+    </form>
+    <button onclick="document.getElementById('portfolio-form').style.display='none'">キャンセル</button>
+</div> {% endcomment %}
+
+{% endblock %}
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block title %}ポートフォリオ{% endblock %}
+
+{% block content %}
+<h1>ポートフォリオ一覧</h1>
+
+<!-- 制作物一覧 -->
+<ul>
+    {% for portfolio in portfolios %}
+        <li>
+            <strong>{{ portfolio.title }}</strong>
+            {% if portfolio.image %}
+                <br><img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}" width="150">
+            {% endif %}
+            <p>{{ portfolio.description }}</p>
+        </li>
+    {% empty %}
+        <li>まだ作品がありません。</li>
+    {% endfor %}
+</ul>
+
+<!-- 制作物追加ボタン -->
+<button onclick="document.getElementById('portfolio-form').style.display='block'">
+    制作物を追加
+</button>
+
+<!-- ポップアップフォーム -->
+<div id="portfolio-form" style="display:none;">
+    <form method="post" action="{% url 'portfolio:add_portfolio' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">追加</button>
+    </form>
+    <button onclick="document.getElementById('portfolio-form').style.display='none'">キャンセル</button>
+</div>
+
+{% comment %} <div class="row">
+    {% for project in portfolio_projects %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    <a href="#" class="btn btn-outline-primary">詳細を見る</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">まだポートフォリオが登録されていません。</p>
+    {% endfor %}
+</div> {% endcomment %}

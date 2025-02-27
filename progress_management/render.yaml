@@ -1,0 +1,12 @@
+# Exported from Render on 2025-02-27T18:34:07Z
+databases:
+- name: EX_COURSE_DATA
+  databaseName: ex_course_data
+  user: ex_course_data_user
+  plan: free
+  region: oregon
+  ipAllowList:
+  - source: 0.0.0.0/0
+    description: everywhere
+  postgresMajorVersion: "16"
+version: "1"

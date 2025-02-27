@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}公開ポートフォリオ{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">公開ポートフォリオ</h1>
+
+<div class="row">
+    {% for project in projects %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    {% if project.image %}
+                        <br><img src="{{ project.image.url }}" alt="{{ project.title }}" width="150">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">現在、公開されているポートフォリオはありません。</p>
+    {% endfor %}
+</div>
+{% endblock %}

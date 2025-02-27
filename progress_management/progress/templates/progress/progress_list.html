@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}制作物進捗{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">制作物進捗</h1>
+
+<!-- 進捗追加ボタン -->
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#progressModal">進捗を追加</button>
+
+<!-- モーダル本体 -->
+<div class="modal fade" id="progressModal" tabindex="-1" aria-labelledby="progressModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="progressModalLabel">進捗を追加</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div>
+            <div class="modal-body">
+                <form id="progressForm" method="post" action="{% url 'progress:add_progress' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">追加</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 進捗リスト -->
+<div class="list-group">
+    {% for progress in progresses %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5>{{ progress.title }}</h5>
+                <p>{{ progress.description }}</p>
+                <small class="text-muted">更新日時: {{ progress.updated_at }}</small>
+            </div>
+            <div>
+                <a href="{% url 'progress:edit_progress' progress.id %}" class="btn btn-outline-warning btn-sm">編集</a>
+                <a href="{% url 'progress:delete_progress' progress.id %}" class="btn btn-outline-danger btn-sm">削除</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">まだ進捗がありません。</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $("#progressForm").submit(function (event) {
+        event.preventDefault();  // 通常のフォーム送信を防ぐ
+        var formData = $(this).serialize();  // フォームデータを取得
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'progress:add_progress' %}",
+            data: formData,
+            success: function (response) {
+                location.reload();  // 成功したらページをリロード
+            },
+            error: function (response) {
+                alert("エラーが発生しました");
+            }
+        });
+    });
+});
+</script>
+
+
+{% comment %} {% block content %}
+<h1 class="mb-4">制作物進捗</h1>
+
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#progressModal">進捗を追加</button>
+
+<div class="list-group">
+    {% for progress in progresses %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5>{{ progress.title }}</h5>
+                <p>{{ progress.description }}</p>
+                <small class="text-muted">更新日時: {{ progress.updated_at }}</small>
+            </div>
+            <div>
+                <a href="{% url 'progress:edit_progress' progress.id %}" class="btn btn-outline-warning btn-sm">編集</a>
+                <a href="{% url 'progress:delete_progress' progress.id %}" class="btn btn-outline-danger btn-sm">削除</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">まだ進捗がありません。</p>
+    {% endfor %}
+</div> {% endcomment %}

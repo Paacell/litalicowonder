@@ -1,0 +1,11 @@
+gunicorn
+
+whitenoise
+
+dj-database-url
+
+django
+
+dotenv
+
+Pillow
