@@ -34,27 +34,13 @@ else:
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    # 'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    'default': dj_database_url.config(default="postgres://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
 }
 
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ex_course_data',
-        'USER': 'ex_course_data_user',
-        'PASSWORD': 'tg8Tx9txMzg7iyrdEDxzEwHsWouUvsW5',
-        'HOST': 'dpg-cus33o56l47c73afklgg-a',
-        'PORT': '5432',
-        'OPTIONS': {
-            'application_name': 'progress_management'
-        }
-    }
-}
-
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://ex_course_database.onrender.com",
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://ex_course_database.onrender.com",
+# ]
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -166,9 +152,9 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 
-# Renderでの静的ファイル配信設定
-if os.getenv("RENDER"):
-    import dj_database_url
-    DATABASES["default"] = dj_database_url.config()
-    MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# # Renderでの静的ファイル配信設定
+# if os.getenv("RENDER"):
+#     import dj_database_url
+#     DATABASES["default"] = dj_database_url.config()
+#     MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
+#     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
