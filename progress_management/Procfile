@@ -1,1 +1,1 @@
-web: gunicorn progress_mamagement.wsgi:application --preload
+web: gunicorn progress_mamagement.wsgi:application
