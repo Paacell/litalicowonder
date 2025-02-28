@@ -26,10 +26,10 @@ SECRET_KEY = 'django-insecure-k+e*uzzlyjyy8#s)kxt%wil)*!pocgk7h61ko7-dek_6ysy!-c
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-else:
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'ex_course_data.onrender.com').split(',')
+# if DEBUG:
+#     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# else:
+#     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'ex_course_data.onrender.com').split(',')
 
 import dj_database_url
 
