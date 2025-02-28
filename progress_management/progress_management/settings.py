@@ -37,6 +37,10 @@ DATABASES = {
     # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
 }
 
+if os.getenv("RENDER"):
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+
 # CSRF_TRUSTED_ORIGINS = [
 #     "https://ex_course_database.onrender.com",
 # ]
