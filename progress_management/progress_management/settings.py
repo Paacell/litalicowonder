@@ -21,8 +21,7 @@ from dotenv import load_dotenv
 # 環境変数を読み込む
 load_dotenv()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k+e*uzzlyjyy8#s)kxt%wil)*!pocgk7h61ko7-dek_6ysy!-c'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
@@ -34,8 +33,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 import dj_database_url
 
 DATABASES = {
-    # 'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
-    'default': dj_database_url.config(default="postgres://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
 }
 
 # CSRF_TRUSTED_ORIGINS = [
