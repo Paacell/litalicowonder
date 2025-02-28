@@ -46,7 +46,7 @@ DATABASES = {
         'HOST': 'dpg-cus33o56l47c73afklgg-a',
         'PORT': '5432',
         'OPTIONS': {
-            'application_name': 'accounts'
+            'application_name': 'progress_management'
         }
     }
 }
@@ -66,7 +66,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-ALLOWED_HOSTS = ["progress_management.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["litalicowonder.onrender.com", "localhost", "127.0.0.1"]
 
 
 # Quick-start development settings - unsuitable for production
