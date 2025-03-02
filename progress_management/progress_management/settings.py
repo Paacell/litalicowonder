@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-
-import os
-from pathlib import Path
 from dotenv import load_dotenv
 
 # 環境変数を読み込む
@@ -30,21 +27,15 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # else:
 #     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'ex_course_data.onrender.com').split(',')
 
-import dj_database_url
-
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
     # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
 }
 
+DATABASES['default']['OPTIONS'] = {'psql_path': 'C:\\Program Files\\PostgreSQL\\17\\bin\\psql.exe'}
+
 if os.getenv("RENDER"):
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
-
-# CSRF_TRUSTED_ORIGINS = [
-#     "https://ex_course_database.onrender.com",
-# ]
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +46,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "litalicowonder.onrender.com").split(",")
+ALLOWED_HOSTS = ['litalicowonder.onrender.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://litalicowonder.onrender.com']
+
+SECURE_SSL_REDIRECT = False
 
 
 # Quick-start development settings - unsuitable for production
