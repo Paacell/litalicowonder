@@ -55,7 +55,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-ALLOWED_HOSTS = ["litalicowonder.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "litalicowonder.onrender.com").split(",")
 
 
 # Quick-start development settings - unsuitable for production
