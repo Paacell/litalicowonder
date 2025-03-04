@@ -22,17 +22,22 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+}
+
 # if DEBUG:
 #     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # else:
 #     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'ex_course_data.onrender.com').split(',')
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True)
-    # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True)
+#     # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
+# }
 
-DATABASES['default']['OPTIONS'] = {'psql_path': 'C:\\Program Files\\PostgreSQL\\17\\bin\\psql.exe'}
+# DATABASES['default']['OPTIONS'] = {'psql_path': 'C:\\Program Files\\PostgreSQL\\17\\bin\\psql.exe'}
 
 if os.getenv("RENDER"):
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
