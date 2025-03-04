@@ -39,8 +39,8 @@ DATABASES = {
 
 # DATABASES['default']['OPTIONS'] = {'psql_path': 'C:\\Program Files\\PostgreSQL\\17\\bin\\psql.exe'}
 
-if os.getenv("RENDER"):
-    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# if os.getenv("RENDER"):
+#     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
