@@ -28,7 +28,7 @@ DEBUG = True
 #     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'ex_course_data.onrender.com').split(',')
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True)
     # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
 }
 
