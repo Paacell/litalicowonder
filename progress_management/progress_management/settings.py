@@ -40,6 +40,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+# 開発環境例
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 ALLOWED_HOSTS = ['litalicowonder.onrender.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://litalicowonder.onrender.com']
