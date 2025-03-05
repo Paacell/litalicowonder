@@ -54,7 +54,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+ALLOWED_HOSTS = ['litalicowonder.onrender.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://litalicowonder.onrender.com']
 
