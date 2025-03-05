@@ -45,3 +45,4 @@ def login_view(request):
             login(request, user)
             return redirect("dashboard:home")
     return render(request, "accounts/login.html", {"form": form})
+
