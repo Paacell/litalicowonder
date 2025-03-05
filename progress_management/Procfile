@@ -1,2 +1,1 @@
-web: gunicorn progress_management.wsgi:application --timeout 120
-
+web: gunicorn progress_management.wsgi:application --workers 3 --timeout 120
