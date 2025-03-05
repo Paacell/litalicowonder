@@ -1,1 +1,2 @@
-gunicorn your_project.wsgi:application --workers=1 --threads=2 --timeout 60
+web: gunicorn progress_management.wsgi:application --timeout 120
+
