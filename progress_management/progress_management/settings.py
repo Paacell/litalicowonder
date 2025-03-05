@@ -27,22 +27,6 @@ DATABASES = {
     'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
-# if DEBUG:
-#     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-# else:
-#     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'ex_course_data.onrender.com').split(',')
-
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True)
-#     # 'default': dj_database_url.config(default="postgresql://litalico:BI73sq0sdkVU3sReS1scysXXsfI05hf4@dpg-cv0kmn0gph6c738ojgk0-a:5432/dbname_i6wy")
-# }
-
-# DATABASES['default']['OPTIONS'] = {'psql_path': 'C:\\Program Files\\PostgreSQL\\17\\bin\\psql.exe'}
-
-# if os.getenv("RENDER"):
-#     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = "/media/"
@@ -61,11 +45,6 @@ ALLOWED_HOSTS = ['litalicowonder.onrender.com']
 CSRF_TRUSTED_ORIGINS = ['https://litalicowonder.onrender.com']
 
 SECURE_SSL_REDIRECT = False
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -111,15 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'progress_management.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -135,10 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -147,22 +113,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
-
-
-# # Renderでの静的ファイル配信設定
-# if os.getenv("RENDER"):
-#     import dj_database_url
-#     DATABASES["default"] = dj_database_url.config()
-#     MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
-#     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
