@@ -5,17 +5,6 @@ from .forms import CustomUserCreationForm
 from django.contrib import messages  # メッセージを追加
 from django.contrib.auth.forms import AuthenticationForm
 
-def register(request):
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("home")
-    else:
-        form = CustomUserCreationForm()
-    return render(request, "accounts/register.html", {"form": form})
-
 def signup(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
@@ -28,10 +17,6 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, "accounts/signup.html", {"form": form})
-
-# def user_logout(request):
-#     logout(request)
-#     return redirect("accounts:login")  # ログアウト後にログインページへリダイレクト
 
 def logout_view(request):
     logout(request)
