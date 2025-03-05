@@ -43,11 +43,11 @@ CSRF_COOKIE_SECURE = True
 # 開発環境例
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SECURE_SSL_REDIRECT = True  # HTTPSに強制リダイレクトする場合
-# HSTSの設定例
-SECURE_HSTS_SECONDS = 3600
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# SECURE_SSL_REDIRECT = True  # HTTPSに強制リダイレクトする場合
+# # HSTSの設定例
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
 
 
 ALLOWED_HOSTS = ['litalicowonder.onrender.com']
