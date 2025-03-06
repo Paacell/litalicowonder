@@ -1,1 +1,1 @@
-web: gunicorn progress_management.wsgi:application --workers 3 --timeout 120 --log-level debug
+web: gunicorn progress_management.wsgi:application --workers 3 --timeout 600 --log-level debug
