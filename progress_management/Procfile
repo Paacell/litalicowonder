@@ -1,2 +1,1 @@
 web: gunicorn --chdir progress_management progress_management.wsgi:application --workers 3 --timeout 600 --log-level debug
-
