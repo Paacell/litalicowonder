@@ -15,3 +15,5 @@ psycopg2
 environ
 
 django-environ
+
+django-allauth
