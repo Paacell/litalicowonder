@@ -27,6 +27,14 @@ DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, ssl_require=True)
 }
 
+import os
+import logging
+
+logger = logging.getLogger(__name__)
+database_url = os.environ.get("DATABASE_URL")
+logger.info("DATABASE_URL: %s", database_url)
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = "/media/"
