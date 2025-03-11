@@ -14,6 +14,7 @@ class Progress(models.Model):
         return self.title
     
 class SubPage(models.Model):
+    print("test")
     game = models.ForeignKey(Progress, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     design_document = models.ImageField(upload_to='design_documents/')
