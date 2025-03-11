@@ -24,3 +24,4 @@ urlpatterns = [
     path('<int:game_id>/subpages/', views.subpage_list, name='subpage_list'),
     path('<int:game_id>/subpages/add/', views.add_subpage, name='add_subpage'),
 ]
+

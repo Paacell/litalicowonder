@@ -46,6 +46,7 @@ def delete_progress(request, progress_id):
         return redirect('progress:progress_list')
     return render(request, 'progress/delete_progress.html', {'progress': progress})
 
+# views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Progress, SubPage
@@ -62,12 +63,17 @@ def subpage_list(request, game_id):
 def add_subpage(request, game_id):
     game = get_object_or_404(Progress, id=game_id)
     if request.method == 'POST':
+        print("✅ POSTリクエスト受信")  # デバッグ確認用
+        print(request.POST)  # データの内容を確認
         form = SubPageForm(request.POST, request.FILES)
         if form.is_valid():
+            print("✅ フォームが有効")
             subpage = form.save(commit=False)
             subpage.game = game
             subpage.save()
             return redirect('progress:subpage_list', game_id=game_id)
+        else:
+            print("❌ フォームが無効", form.errors)
     else:
         form = SubPageForm()
     return render(request, 'progress/subpage_list.html', {'form': form})
