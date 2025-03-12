@@ -51,17 +51,32 @@ from django.contrib.auth.decorators import login_required
 from .models import Game, SubPage
 from .forms import GameForm, SubPageForm
 
+# @login_required
+# def game_list(request):
+#     games = Game.objects.filter(user=request.user)
+#     form = GameForm()
+#     if request.method == 'POST':
+#         form = GameForm(request.POST)
+#         if form.is_valid():
+#             game = form.save(commit=False)
+#             game.user = request.user
+#             game.save()
+#             return redirect('progress:progress_list')
+#     return render(request, 'progress/progress_list.html', {'games': games, 'form': form})
+
 @login_required
 def game_list(request):
-    games = Game.objects.filter(user=request.user)
+    games = Game.objects.filter(user=request.user)  # 🔥 現在のユーザーに限定
     form = GameForm()
+
     if request.method == 'POST':
         form = GameForm(request.POST)
         if form.is_valid():
             game = form.save(commit=False)
-            game.user = request.user
+            game.user = request.user  # 🔥 ユーザー情報を紐づける
             game.save()
             return redirect('progress:progress_list')
+
     return render(request, 'progress/progress_list.html', {'games': games, 'form': form})
 
 @login_required
