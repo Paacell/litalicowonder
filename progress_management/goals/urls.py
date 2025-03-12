@@ -8,14 +8,16 @@
 #     path("edit/", edit_goal, name="edit_goal"),
 # ]
 
+from .views import goal_list, edit_goal
 from django.urls import path
 from . import views
 
 app_name = "goals"
 
 urlpatterns = [
+    path("", goal_list, name="goal_list"),
     path("students/", views.student_list, name="student_list"),  # 生徒一覧
-    path("students/<int:student_id>/goals/", views.student_goal_list, name="goal_list"),  # 生徒ごとの目標一覧
+    path("students/<int:student_id>/goals/", views.student_goal_list, name="student_goal_list"),  # 生徒ごとの目標一覧
     path("goal/edit/<int:goal_id>/", views.goal_edit, name="goal_edit"),  # 目標の編集
     path("goal/create/", views.goal_edit, name="goal_create"),  # 目標の作成
 ]
