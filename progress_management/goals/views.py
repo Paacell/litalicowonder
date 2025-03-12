@@ -27,3 +27,49 @@ def edit_goal(request):
         form = GoalForm(instance=goal)
 
     return render(request, "goals/edit_goal.html", {"form": form})
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Goal
+from accounts.models import CustomUser
+from .forms import GoalForm
+
+# 教師であるか判定する関数
+def is_admin(user):
+    return user.is_authenticated and user.is_admin
+
+# 生徒一覧ページ（教師専用）
+@login_required
+@user_passes_test(is_admin)
+def student_list(request):
+    students = CustomUser.objects.filter(is_student=True)  # 生徒のみ取得
+    return render(request, "goals/student_list.html", {"students": students})
+
+# 生徒ごとの目標一覧（教師専用）
+@login_required
+@user_passes_test(is_admin)
+def student_goal_list(request, student_id):
+    student = get_object_or_404(CustomUser, id=student_id, is_student=True)
+    goals = Goal.objects.filter(student=student)
+    return render(request, "goals/student_goal_list.html", {"student": student, "goals": goals})
+
+# 目標の作成・編集（教師専用）
+@login_required
+@user_passes_test(is_admin)
+def goal_edit(request, goal_id=None):
+    if goal_id:
+        goal = get_object_or_404(Goal, id=goal_id)
+    else:
+        goal = None
+
+    if request.method == "POST":
+        form = GoalForm(request.POST, instance=goal)
+        if form.is_valid():
+            form.save()
+            return redirect("goals:student_goal_list", student_id=form.cleaned_data["student"].id)
+    else:
+        form = GoalForm(instance=goal)
+
+    return render(request, "goals/goal_form.html", {"form": form})
