@@ -1,42 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %}サブページ一覧{% endblock %}
+{% block title %}{{ game.title }}の進捗{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">{{ game.title }}のサブページ</h1>
+<h1 class="mb-4">{{ game.title }}の進捗</h1>
 
-<!-- サブページ追加ボタン -->
-<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subpageModal">サブページを追加</button>
+<!-- 進捗追加フォーム -->
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subpageModal">進捗を追加</button>
 
-<!-- サブページ追加モーダル -->
-<div class="modal fade" id="subpageModal" tabindex="-1" aria-labelledby="subpageModalLabel" aria-hidden="true">
+<div class="modal fade" id="subpageModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="subpageModalLabel">サブページを追加</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">追加</button>
-                </form>
-            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">追加</button>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- サブページリスト -->
+<!-- 進捗リスト -->
 <div class="list-group">
     {% for subpage in subpages %}
-        <div class="list-group-item">
-            <h5>{{ subpage.title }}</h5>
-            <img src="{{ subpage.design_document.url }}" alt="計画書" class="img-fluid my-3">
-            <p>{{ subpage.progress_note }}</p>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5>{{ subpage.progress_title }}</h5>
+                <p>{{ subpage.progress_detail }}</p>
+                <small class="text-muted">更新日時: {{ subpage.updated_at }}</small>
+            </div>
+            <div>
+                <a href="#" class="btn btn-outline-warning btn-sm">編集</a>
+                <a href="#" class="btn btn-outline-danger btn-sm">削除</a>
+            </div>
         </div>
     {% empty %}
-        <p class="text-muted">まだサブページがありません。</p>
+        <p class="text-muted">まだ進捗がありません。</p>
     {% endfor %}
 </div>
 {% endblock %}
