@@ -73,3 +73,16 @@ def goal_edit(request, goal_id=None):
         form = GoalForm(instance=goal)
 
     return render(request, "goals/goal_form.html", {"form": form})
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Goal
+
+# 生徒用: 自分の目標を閲覧
+@login_required
+def my_goals(request):
+    if not request.user.is_student:  # 生徒以外はアクセス不可
+        return render(request, "errors/403.html", status=403)
+
+    goals = Goal.objects.filter(student=request.user)  # 自分の目標のみ取得
+    return render(request, "goals/my_goals.html", {"goals": goals})

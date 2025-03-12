@@ -1,16 +1,17 @@
-{% extends "base.html" %}
 {% block content %}
-<h2>{{ student.username }} の目標一覧</h2>
+<h2>あなたの目標</h2>
 <ul>
     {% for goal in goals %}
         <li>
-            <strong>{{ goal.title }}</strong>: {{ goal.description }}
-            <a href="{% url 'goals:goal_edit' goal.id %}">編集</a>
+            <strong>{{ goal.title }}</strong>: {{ goal.description }} <br>
+            <small>最終更新: {{ goal.updated_at|date:"Y-m-d H:i" }}</small>
         </li>
+    {% empty %}
+        <p>現在、設定された目標はありません。</p>
     {% endfor %}
 </ul>
-<a href="{% url 'goals:goal_create' %}">新しい目標を作成</a>
 {% endblock %}
+
 
 
 {% comment %} {% extends "base.html" %}
