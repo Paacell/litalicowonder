@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ student.username }} の目標一覧</h2>
+<ul>
+    {% for goal in goals %}
+        <li>
+            <strong>{{ goal.title }}</strong>: {{ goal.description }}
+            <a href="{% url 'goals:goal_edit' goal.id %}">編集</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'goals:goal_create' %}">新しい目標を作成</a>
+{% endblock %}
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block title %}中長期目標{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">中長期目標</h1>
+
+{% if goal %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ goal.title }}</h2>
+            <p class="card-text">{{ goal.description }}</p>
+        </div>
+    </div>
+{% else %}
+    <p class="text-muted">目標が設定されていません。</p>
+{% endif %}
+
+{% if user.is_staff %}
+    <a href="{% url 'goals:edit_goal' %}" class="btn btn-warning mt-3">目標を編集</a>
+{% endif %}
+{% endblock %} {% endcomment %}
