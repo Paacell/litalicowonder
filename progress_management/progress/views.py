@@ -61,8 +61,8 @@ def game_list(request):
             game = form.save(commit=False)
             game.user = request.user
             game.save()
-            return redirect('progress:game_list')
-    return render(request, 'progress/game_list.html', {'games': games, 'form': form})
+            return redirect('progress:progress_list')
+    return render(request, 'progress/progress_list.html', {'games': games, 'form': form})
 
 @login_required
 def subpage_list(request, game_id):
