@@ -9,7 +9,7 @@ def is_admin(user):
 @login_required
 def goal_list(request):
     goal = Goal.objects.first()  # 目標は1つだけ管理
-    return render(request, "goals/goal_list.html", {"goal": goal})
+    return render(request, "goals/student_goal_list.html", {"goal": goal})
 
 @user_passes_test(is_admin)  # 管理者のみ編集可能
 @login_required
@@ -22,7 +22,7 @@ def edit_goal(request):
         form = GoalForm(request.POST, instance=goal)
         if form.is_valid():
             form.save()
-            return redirect("goals:goal_list")
+            return redirect("goals:student_goal_list")
     else:
         form = GoalForm(instance=goal)
 
