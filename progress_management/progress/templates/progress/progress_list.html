@@ -32,72 +32,115 @@
 </div>
 {% endblock %}
 
-
-
-
-{% comment %} {% extends "base.html" %}
-
-{% block title %}サブページ一覧{% endblock %}
-
-{% block content %}
-<h1 class="mb-4">{{ game.title }}のサブページ</h1>
-
-<!-- サブページ追加ボタン -->
-<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subpageModal">サブページを追加</button>
-
-<!-- サブページ追加モーダル -->
-<div class="modal fade" id="subpageModal" tabindex="-1" aria-labelledby="subpageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="subpageModalLabel">サブページを追加</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">追加</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- サブページリスト -->
-<div class="list-group">
-    {% for subpage in subpages %}
-        <div class="list-group-item">
-            <h5>{{ subpage.title }}</h5>
-            <img src="{{ subpage.design_document.url }}" alt="計画書" class="img-fluid my-3">
-            <p>{{ subpage.progress_note }}</p>
-        </div>
-    {% empty %}
-        <p class="text-muted">まだサブページがありません。</p>
-    {% endfor %}
-</div>
-{% endblock %} 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function () {
-    $("#progressForm").submit(function (event) {
-        event.preventDefault();  // 通常のフォーム送信を防ぐ
-        var formData = $(this).serialize();  // フォームデータを取得
-
-        $.ajax({
-            type: "POST",
-            url: "{% url 'progress:add_progress' %}",
-            data: formData,
-            success: function (response) {
-                location.reload();  // 成功したらページをリロード
-            },
-            error: function (response) {
-                alert("エラーが発生しました");
-            }
-        });
-    });
-});
-</script>
-
-{% endcomment %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+    
+    header {
+        background: #343a40;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    nav {
+        background: #007bff;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 5px 10px;
+    }
+    
+    nav a:hover {
+        text-decoration: underline;
+    }
+    
+    .dropdown-menu {
+        background: white;
+        border: 1px solid #ddd;
+    }
+    
+    .dropdown-item {
+        color: #007bff;
+    }
+    
+    .dropdown-item:hover {
+        background: #007bff;
+        color: white;
+    }
+    
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    
+    .list-group-item {
+        background: white;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    
+    .list-group-item:hover {
+        background: #f0f0f0;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    .modal-header {
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .modal-body {
+        padding: 15px;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: center;
+        }
+        nav a {
+            display: block;
+            margin: 5px 0;
+        }
+    }
+    
+</style>
