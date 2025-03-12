@@ -18,3 +18,11 @@ class SubPageForm(forms.ModelForm):
     class Meta:
         model = SubPage
         fields = ['progress_title', 'progress_detail']
+        
+from django import forms
+from .models import GamePlan
+
+class GamePlanForm(forms.ModelForm):
+    class Meta:
+        model = GamePlan
+        fields = ['concept', 'mechanics', 'art_style', 'development_schedule']

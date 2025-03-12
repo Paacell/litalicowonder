@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+<h1>{{ game.title }}</h1>
+<p>{{ game.description }}</p>
+
+<h2>ゲーム作成計画書</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">保存</button>
+</form>
+
+<hr>
+
+
 {% block title %}{{ game.title }}の進捗{% endblock %}
 
 {% block content %}

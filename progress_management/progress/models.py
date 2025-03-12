@@ -35,3 +35,19 @@ class SubPage(models.Model):
 
     def __str__(self):
         return f"{self.game.title} - {self.progress_title}"
+    
+    
+from django.db import models
+
+class Plan(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class GamePlan(models.Model):
+    game = models.OneToOneField(Game, on_delete=models.CASCADE, related_name='plan')
+    concept = models.TextField()
+    mechanics = models.TextField()
+    art_style = models.TextField()
+    development_schedule = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

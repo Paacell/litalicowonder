@@ -15,7 +15,7 @@ from . import views
 app_name = "goals"
 
 urlpatterns = [
-    path("", my_goals, name="my_goals"),
+    path("", views.my_goals, name="my_goals"),
     path("students/", views.student_list, name="student_list"),  # 生徒一覧
     path("students/<int:student_id>/goals/", views.student_goal_list, name="student_goal_list"),  # 生徒ごとの目標一覧
     path("goal/edit/<int:goal_id>/", views.goal_edit, name="goal_edit"),  # 目標の編集
