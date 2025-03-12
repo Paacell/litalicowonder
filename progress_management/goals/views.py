@@ -3,13 +3,13 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Goal
 from .forms import GoalForm
 
-def is_admin(user):
-    return user.is_staff  # 管理者かどうかチェック
+# def is_admin(user):
+#     return user.is_staff  # 管理者かどうかチェック
 
-@login_required
-def goal_list(request):
-    goal = Goal.objects.first()  # 目標は1つだけ管理
-    return render(request, "goals/goal_list.html", {"goal": goal})
+# @login_required
+# def goal_list(request):
+#     goal = Goal.objects.first()  # 目標は1つだけ管理
+#     return render(request, "goals/goal_list.html", {"goal": goal})
 
 # @user_passes_test(is_admin)  # 管理者のみ編集可能
 # @login_required
