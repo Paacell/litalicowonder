@@ -128,7 +128,7 @@
         </div>
     
         <a href="{% url 'portfolio:portfolio_list' %}">ポートフォリオ</a>
-        <a href="{% url 'goals:goal_list' %}">中長期目標</a>
+        <a href="{% url 'goals:my_goals' %}">中長期目標</a>
     
         {% if user.is_authenticated %}
             <a href="{% url 'accounts:logout' %}">ログアウト</a>

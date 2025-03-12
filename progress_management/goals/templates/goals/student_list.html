@@ -2,7 +2,7 @@
 <h2>生徒一覧</h2>
 <ul>
     {% for student in students %}
-        <li><a href="{% url 'goals:goal_list' student.id %}">{{ student.username }}</a></li>
+        <li><a href="{% url 'goals:my_goals' student.id %}">{{ student.username }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
