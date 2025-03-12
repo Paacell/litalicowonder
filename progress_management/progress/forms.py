@@ -4,7 +4,7 @@ from .models import Progress, SubPage
 class ProgressForm(forms.ModelForm):
     class Meta:
         model = Progress
-        fields = ['title', 'description1', 'description2']
+        fields = ['title', 'description1']
         
 class SubPageForm(forms.ModelForm):
     class Meta:
