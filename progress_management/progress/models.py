@@ -45,7 +45,7 @@ class Plan(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class GamePlan(models.Model):
-    game = models.OneToOneField(Game, on_delete=models.CASCADE, related_name='plan')
+    game = models.OneToOneField(Plan, on_delete=models.CASCADE, related_name='plan')
     concept = models.TextField()
     mechanics = models.TextField()
     art_style = models.TextField()
