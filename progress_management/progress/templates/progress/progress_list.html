@@ -41,6 +41,28 @@
 </div>
 {% endblock %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $("#progressForm").submit(function (event) {
+        event.preventDefault();  // 通常のフォーム送信を防ぐ
+        var formData = $(this).serialize();  // フォームデータを取得
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'progress:add_progress' %}",
+            data: formData,
+            success: function (response) {
+                location.reload();  // 成功したらページをリロード
+            },
+            error: function (response) {
+                alert("エラーが発生しました");
+            }
+        });
+    });
+});
+</script>
+
 
 
 {% comment %} {% extends "base.html" %}
@@ -93,27 +115,4 @@
     {% endfor %}
 </div>
 {% endblock %}
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function () {
-    $("#progressForm").submit(function (event) {
-        event.preventDefault();  // 通常のフォーム送信を防ぐ
-        var formData = $(this).serialize();  // フォームデータを取得
-
-        $.ajax({
-            type: "POST",
-            url: "{% url 'progress:add_progress' %}",
-            data: formData,
-            success: function (response) {
-                location.reload();  // 成功したらページをリロード
-            },
-            error: function (response) {
-                alert("エラーが発生しました");
-            }
-        });
-    });
-});
-</script> {% endcomment %}
+{% endcomment %}
