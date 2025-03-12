@@ -8,7 +8,7 @@
 #     path("edit/", edit_goal, name="edit_goal"),
 # ]
 
-from .views import goal_list, edit_goal
+from .views import goal_list
 from django.urls import path
 from . import views
 
