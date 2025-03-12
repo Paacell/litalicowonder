@@ -4,9 +4,17 @@ from .models import Progress, SubPage
 class ProgressForm(forms.ModelForm):
     class Meta:
         model = Progress
-        fields = ['title', 'description1']
+        fields = ['title', 'description']
         
+from django import forms
+from .models import Game, SubPage
+
+class GameForm(forms.ModelForm):
+    class Meta:
+        model = Game
+        fields = ['title', 'description']
+
 class SubPageForm(forms.ModelForm):
     class Meta:
         model = SubPage
-        fields = ['title', 'design_document', 'progress_note']
+        fields = ['progress_title', 'progress_detail']

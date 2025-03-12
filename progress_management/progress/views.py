@@ -46,34 +46,34 @@ def delete_progress(request, progress_id):
         return redirect('progress:progress_list')
     return render(request, 'progress/delete_progress.html', {'progress': progress})
 
-# views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Progress, SubPage
-from .forms import ProgressForm, SubPageForm
+from .models import Game, SubPage
+from .forms import GameForm, SubPageForm
+
+@login_required
+def game_list(request):
+    games = Game.objects.filter(user=request.user)
+    form = GameForm()
+    if request.method == 'POST':
+        form = GameForm(request.POST)
+        if form.is_valid():
+            game = form.save(commit=False)
+            game.user = request.user
+            game.save()
+            return redirect('progress:game_list')
+    return render(request, 'progress/game_list.html', {'games': games, 'form': form})
 
 @login_required
 def subpage_list(request, game_id):
-    game = get_object_or_404(Progress, id=game_id)
+    game = get_object_or_404(Game, id=game_id)
     subpages = SubPage.objects.filter(game=game)
     form = SubPageForm()
-    return render(request, 'progress/subpage_list.html', {'game': game, 'subpages': subpages, 'form': form})
-
-@login_required
-def add_subpage(request, game_id):
-    game = get_object_or_404(Progress, id=game_id)
     if request.method == 'POST':
-        print("✅ POSTリクエスト受信")  # デバッグ確認用
-        print(request.POST)  # データの内容を確認
-        form = SubPageForm(request.POST, request.FILES)
+        form = SubPageForm(request.POST)
         if form.is_valid():
-            print("✅ フォームが有効")
             subpage = form.save(commit=False)
             subpage.game = game
             subpage.save()
             return redirect('progress:subpage_list', game_id=game_id)
-        else:
-            print("❌ フォームが無効", form.errors)
-    else:
-        form = SubPageForm()
-    return render(request, 'progress/subpage_list.html', {'form': form})
+    return render(request, 'progress/subpage_list.html', {'game': game, 'subpages': subpages, 'form': form})
