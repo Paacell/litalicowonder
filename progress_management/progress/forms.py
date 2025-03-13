@@ -13,6 +13,11 @@ class GameForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = ['title', 'description', 'test']
+        widgets = {
+            'title': forms.TextInput(attrs={'class':'form-control'}),
+            'description':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'test':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
 
 class SubPageForm(forms.ModelForm):
     class Meta:
