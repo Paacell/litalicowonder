@@ -32,22 +32,22 @@ def subpage_list(request, game_id):
             return redirect('progress:subpage_list', game_id=game_id)
     return render(request, 'progress/subpage_list.html', {'game': game, 'subpages': subpages, 'form': form})
 
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Plan, GamePlan
-from .forms import GamePlanForm
+# from django.shortcuts import render, get_object_or_404, redirect
+# from .models import Plan, GamePlan
+# from .forms import GamePlanForm
 
-def game_detail(request, game_id):
-    game = get_object_or_404(Plan, id=game_id)
+# def game_detail(request, game_id):
+#     game = get_object_or_404(Plan, id=game_id)
     
-    # 既存の計画があれば取得、なければ新規作成
-    game_plan, created = GamePlan.objects.get_or_create(game=game)
+#     # 既存の計画があれば取得、なければ新規作成
+#     game_plan, created = GamePlan.objects.get_or_create(game=game)
 
-    if request.method == 'POST':
-        form = GamePlanForm(request.POST, instance=game_plan)
-        if form.is_valid():
-            form.save()
-            return redirect('game_detail', game_id=game.id)
-    else:
-        form = GamePlanForm(instance=game_plan)
+#     if request.method == 'POST':
+#         form = GamePlanForm(request.POST, instance=game_plan)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('game_detail', game_id=game.id)
+#     else:
+#         form = GamePlanForm(instance=game_plan)
 
-    return render(request, 'game_detail.html', {'game': game, 'form': form})
+#     return render(request, 'game_detail.html', {'game': game, 'form': form})
