@@ -12,11 +12,15 @@ from .models import Game, SubPage
 class GameForm(forms.ModelForm):
     class Meta:
         model = Game
-        fields = ['title', 'description', 'test']
+        fields = ['title', 'overview', 'description1', 'description2', 'description3', 'description4', 'description5',]
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control'}),
-            'description':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'test':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'description1':forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'description2':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'description3':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'description4':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'description5':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'overview':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
 class SubPageForm(forms.ModelForm):

@@ -20,8 +20,13 @@ from django.conf import settings
 
 class Game(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    test = models.TextField(default="test", verbose_name="test", blank=False, null=False, editable=True, max_length=20)
+    overview = models.TextField(default="")
+    description1 = models.TextField(default="")
+    description2 = models.TextField(default="")
+    description3 = models.TextField(default="")
+    description4 = models.TextField(default="")
+    description5 = models.TextField(default="")
+    # test = models.TextField(default="test", verbose_name="test", blank=False, null=False, editable=True, max_length=20)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
