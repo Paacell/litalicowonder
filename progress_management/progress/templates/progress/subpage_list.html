@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ game.title }}の進捗{% endblock %}
 
+
+{% block div %}
 <p>{{ game.title }}</p>
 <p>{{ game.overview }}</p>
 <p>{{ game.description1 }}</p>
@@ -8,6 +10,7 @@
 <p>{{ game.description3 }}</p>
 <p>{{ game.description4 }}</p>
 <p>{{ game.description5 }}</p>
+{% endblock %}
 
 {% block content %}
 <h1 class="mb-4">{{ game.title }}の進捗</h1>
