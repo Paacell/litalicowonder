@@ -15,12 +15,12 @@ class GameForm(forms.ModelForm):
         fields = ['title', 'overview', 'description1', 'description2', 'description3', 'description4', 'description5',]
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control'}),
-            'description1':forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'description1':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'description2':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'description3':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'description4':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'description5':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'overview':forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'overview':forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
         }
 
 class SubPageForm(forms.ModelForm):
