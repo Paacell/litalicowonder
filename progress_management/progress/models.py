@@ -21,7 +21,7 @@ from django.conf import settings
 class Game(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    test = models.TextField(default="test", verbose_name="test", blank=False, null=False, editable=False, max_length=20)
+    test = models.TextField(default="test", verbose_name="test", blank=False, null=False, editable=True, max_length=20)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
