@@ -12,7 +12,7 @@ from .models import Game, SubPage
 class GameForm(forms.ModelForm):
     class Meta:
         model = Game
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'test']
 
 class SubPageForm(forms.ModelForm):
     class Meta:
