@@ -7,20 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}LITALICOワンダー押上教室{% endblock %}</title>
-    {% comment %} <style>
-        body { font-family: Arial, sans-serif; margin: 20px; padding: 0; }
-        header { background: #333; color: white; padding: 10px; text-align: center; }
-        nav { margin-bottom: 20px; text-align: center; }
-        nav a { margin: 0 15px; text-decoration: none; color: blue; }
-    </style>
-
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-            margin-top: 0;
-        }
-    </style> {% endcomment %}
-
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -95,7 +81,7 @@
     </style>
 
     <style>
-        .custom-input {
+        {% comment %} .custom-input {
             width: 100%;
             font-size: 16px;
             padding: 5px;
@@ -111,7 +97,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-        }
+        } {% endcomment %}
         
         .modal-content {
             padding: 20px;
