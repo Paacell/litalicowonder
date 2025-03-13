@@ -25,6 +25,7 @@
     {% for game in games %}
         <a href="{% url 'progress:subpage_list' game.id %}" class="list-group-item list-group-item-action">
             {{ game.title }}
+            <p>{{ game.overview }}</p>
         </a>
     {% empty %}
         <p class="text-muted">まだ進捗がありません。</p>
