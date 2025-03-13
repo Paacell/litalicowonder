@@ -24,7 +24,7 @@
 <div class="list-group">
     {% for game in games %}
         <a href="{% url 'progress:subpage_list' game.id %}" class="list-group-item list-group-item-action">
-            {{ game.title }}
+            <h3>{{ game.title }}<h3>
             <p>{{ game.overview }}</p>
         </a>
     {% empty %}
