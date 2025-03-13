@@ -4,7 +4,15 @@
 
 <h1 class="mb-4">{{ game.title }}の進捗</h1>
 
-<div class="modal fade" id="subpageModal" tabindex="-1">
+<p>{{ game.title }}</p>
+<p>{{ game.overview }}</p>
+<p>{{ game.description1 }}</p>
+<p>{{ game.description2 }}</p>
+<p>{{ game.description3 }}</p>
+<p>{{ game.description4 }}</p>
+<p>{{ game.description5 }}</p>
+
+{% comment %} <div class="modal fade" id="subpageModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <form method="post">
@@ -45,10 +53,10 @@
             </form>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 
 
-{% comment %} <!-- 進捗追加フォーム -->
+<!-- 進捗追加フォーム -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subpageModal">進捗を追加</button>
 
 <div class="modal fade" id="subpageModal" tabindex="-1">
@@ -61,7 +69,7 @@
             </form>
         </div>
     </div>
-</div> {% endcomment %}
+</div>
 
 {% comment %} 
 <!-- 進捗リスト -->
