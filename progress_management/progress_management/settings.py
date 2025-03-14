@@ -55,6 +55,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
+
 
 CSRF_TRUSTED_ORIGINS = ['https://litalicowonder.onrender.com']
 
