@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}進捗管理メインページ{% endblock %}
+{% block title %}ゲーム一覧{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">進捗管理メインページ</h1>
+<h1 class="mb-4">ゲーム一覧</h1>
 
 <!-- 新規ゲーム作成フォーム -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#gameModal">新しいゲームを追加</button>
@@ -24,8 +24,8 @@
 <div class="list-group">
     {% for game in games %}
         <a href="{% url 'progress:subpage_list' game.id %}" class="list-group-item list-group-item-action">
-            <h3>{{ game.title }}<h3>
-            <p>{{ game.overview }}</p>
+            <div><h5>{{ game.title }}<h5></div>
+            <div><p>{{ game.overview }}</p></div>
         </a>
     {% empty %}
         <p class="text-muted">まだ進捗がありません。</p>

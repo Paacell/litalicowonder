@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ゲーム計画書一覧</title>
+</head>
+<body>
+    <h1>ゲーム計画書一覧</h1>
+    <ul>
+    {% for plan in game_plans %}
+        <li>
+            <!-- 後ほど個別ページ（サブページ）のURLを設定します -->
+            <a href="{% url 'plans:game_detail' game_id=plan.id %}">{{ plan.title }}</a> - {{ plan.summary }}
+        </li>
+    {% empty %}
+        <li>まだゲーム計画書がありません。</li>
+    {% endfor %}
+    </ul>
+
+    <h2>新しいゲーム計画書の作成</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">作成</button>
+    </form>
+</body>
+</html>

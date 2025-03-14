@@ -1,13 +1,7 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-# from .models import Portfolio
-# from .forms import PortfolioForm
-
-# @login_required
-# def portfolio_list(request):
-#     portfolios = Portfolio.objects.filter(student=request.user)
-#     form = PortfolioForm()
-#     return render(request, "portfolio/portfolio_list.html", {"portfolios": portfolios, "form": form})
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import PortfolioProject
+from .forms import PortfolioForm
 
 @login_required
 def add_portfolio(request):
@@ -19,11 +13,6 @@ def add_portfolio(request):
             portfolio.save()
             return redirect("portfolio:portfolio_list")
     return redirect("portfolio:portfolio_list")
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .models import PortfolioProject
-from .forms import PortfolioForm
 
 @login_required
 def portfolio_list(request):

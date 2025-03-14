@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ game_plan.title }}</title>
+  <!-- Chart.js (今回は使用しないためコメントアウト可) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jQuery & jQuery UI (ドラッグ＆ドロップ用) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+  <style>
+    /* ========== リセット＆基本スタイル ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    .top-banner {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    .top-banner h1 {
+      font-size: 2rem;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* ========== ヒーローセクション ========== */
+    .hero-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .hero-image img {
+      /* 画像を大きめに表示 */
+      max-width: 400px;
+      height: auto;
+    }
+    .hero-text {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .hero-text h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .hero-text ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+    .hero-text li {
+      margin-bottom: 5px;
+    }
+    
+    /* ========== (一旦コメントアウト) 進捗状況・タスク状態 ========== */
+    <!--
+    .progress-section { ... }
+    .chart-section { ... }
+    -->
+    
+    /* ========== タスク管理セクション ========== */
+    .task-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    .task-section h2 {
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+    }
+    .task-lists {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+    }
+    .task-column {
+      flex: 1;
+    }
+    .task-column h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+    }
+    .task-list {
+      min-height: 250px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    .task-item {
+      padding: 8px;
+      margin-bottom: 8px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: grab;
+    }
+    .task-placeholder {
+      background-color: #e0e0e0;
+      border: 2px dashed #aaa;
+      margin-bottom: 8px;
+      height: 40px;
+    }
+    
+    /* ========== タスク追加フォーム ========== */
+    .task-form-section {
+      margin-top: 20px;
+    }
+    .task-form-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .task-form-section form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .task-form-section button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .task-form-section button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* ========== フィードバックセクション ========== */
+    .feedback-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    .feedback-section h2 {
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+    .feedback-list {
+      margin-bottom: 20px;
+    }
+    .feedback-list li {
+      margin-bottom: 5px;
+    }
+    .feedback-post-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .feedback-post-btn:hover {
+      background-color: #0056b3;
+    }
+    
+    /* ========== モーダル（新規フィードバック投稿フォームのみ） ========== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+    
+    .footer-link {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .footer-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
+    
+    /* ========== レスポンシブ対応 ========== */
+    @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-text {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+      .task-lists {
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <script>
+    // ドラッグ＆ドロップの設定（タスク管理用）
+    $(function() {
+      $(".task-list").sortable({
+        connectWith: ".task-list",
+        placeholder: "task-placeholder",
+        update: function(event, ui) {
+          var taskId = ui.item.data("task-id");
+          var newStatus = ui.item.parent().attr("id");
+          $.ajax({
+            url: `/plans/update_task_status/${taskId}/${newStatus}/`,
+            type: "POST",
+            headers: { "X-CSRFToken": "{{ csrf_token }}" },
+            success: function(response) {
+              // 進捗率やタスク状態更新の処理（今回はコメントアウト）
+            },
+            error: function(xhr) {
+              console.error("エラー:", xhr.responseText);
+            }
+          });
+        }
+      }).disableSelection();
+    });
+    
+    // モーダル制御（フィードバック投稿フォーム）
+    document.addEventListener("DOMContentLoaded", function() {
+      var openBtn = document.getElementById("openFeedbackModalBtn");
+      var modal = document.getElementById("feedbackModal");
+      var closeBtn = document.getElementById("closeModalBtn");
+      openBtn.addEventListener("click", function() {
+        modal.style.display = "block";
+      });
+      closeBtn.addEventListener("click", function() {
+        modal.style.display = "none";
+      });
+      window.addEventListener("click", function(e) {
+        if (e.target == modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- トップバナー -->
+  <header class="top-banner">
+    <h1>制作物</h1>
+  </header>
+
+  <!-- コンテナ開始 -->
+  <div class="container">
+    <!-- ヒーローセクション：ゲーム計画書 -->
+    <section class="hero-section">
+      <div class="hero-image">
+        <img src="https://via.placeholder.com/400x240?text=Eye+Image" alt="Eye Image">
+      </div>
+      <div class="hero-text">
+        <h2>ゲーム計画書</h2>
+        <ul>
+          <li>ポイント: {{ game_plan.title }}</li>
+          <li>機能1: {{ game_plan.description1 }}</li>
+          <li>機能2: {{ game_plan.description2 }}</li>
+          <li>機能3: {{ game_plan.description3 }}</li>
+          <li>機能4: {{ game_plan.description4 }}</li>
+          <li>機能4: {{ game_plan.description5 }}</li>
+          {# その他の項目があれば追加してください #}
+        </ul>
+      </div>
+    </section>
+
+    <!-- 進捗状況とタスク状態のセクションは一旦コメントアウト -->
+    <!--
+    <section class="progress-section">
+      ... 進捗バーなど ...
+    </section>
+    <section class="chart-section">
+      ... タスク状態チャート ...
+    </section>
+    -->
+
+    <!-- タスク管理セクション -->
+    <section class="task-section">
+      <h2>タスク管理</h2>
+      <div class="task-lists">
+        <!-- 未着手（ゲーム計画書で入力した内容を自動反映） -->
+        <div class="task-column">
+          <h3>未着手</h3>
+          <ul id="not_started" class="task-list">
+            {% if game_plan.description1 %}
+              <li class="task-item">{{ game_plan.description1 }}</li>
+            {% endif %}
+            {% if game_plan.description2 %}
+              <li class="task-item">{{ game_plan.description2 }}</li>
+            {% endif %}
+            {% if game_plan.description3 %}
+              <li class="task-item">{{ game_plan.description3 }}</li>
+            {% endif %}
+            {% if game_plan.description4 %}
+              <li class="task-item">{{ game_plan.description4 }}</li>
+            {% endif %}
+            {# 既存の未着手タスク（DBから取得している場合）も表示 #}
+            {% for task in tasks_not_started %}
+              <li class="task-item" data-task-id="{{ task.id }}">{{ task.title }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- 実行中 -->
+        <div class="task-column">
+          <h3>実行中</h3>
+          <ul id="in_progress" class="task-list">
+            {% for task in tasks_in_progress %}
+              <li class="task-item" data-task-id="{{ task.id }}">{{ task.title }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- 完了済み -->
+        <div class="task-column">
+          <h3>完了済み</h3>
+          <ul id="completed" class="task-list">
+            {% for task in tasks_completed %}
+              <li class="task-item" data-task-id="{{ task.id }}">{{ task.title }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      
+      <!-- タスク追加フォーム -->
+      <div class="task-form-section">
+        <h3>新しいタスクを追加</h3>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="task_form">
+          {{ task_form.as_p }}
+          <button type="submit">追加</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- フィードバックセクション（一覧は常時表示） -->
+    <section class="feedback-section">
+      <h2>授業フィードバック</h2>
+      <ul class="feedback-list">
+        {% for feedback in feedbacks %}
+          <li>{{ feedback.created_at|date:"Y-m-d H:i" }} - {{ feedback.content }}</li>
+        {% empty %}
+          <li>フィードバックはまだありません。</li>
+        {% endfor %}
+      </ul>
+      <!-- フィードバック投稿用モーダルを開くボタン -->
+      <button id="openFeedbackModalBtn" class="feedback-post-btn">フィードバックを投稿</button>
+    </section>
+
+    <!-- フィードバック投稿用モーダル（入力フォームのみ） -->
+    <div id="feedbackModal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        <div class="feedback-form">
+          <h3>新しいフィードバックを追加</h3>
+          <form method="post" action="{% url 'plans:add_feedback' game_plan.id %}">
+            {% csrf_token %}
+            {{ feedback_form.as_p }}
+            <button type="submit">投稿</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- メインページに戻る -->
+    <div class="footer-link">
+      <a href="/plans">メインページに戻る</a>
+    </div>
+
+  </div><!-- /container -->
+</body>
+</html>
+{% endblock %}
