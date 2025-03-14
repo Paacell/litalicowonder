@@ -8,7 +8,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 import dj_database_url
 DATABASES = {
