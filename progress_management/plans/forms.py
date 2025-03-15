@@ -14,7 +14,7 @@ class TaskForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ['content']
+        fields = ['question1', 'question2', 'question3', 'question4', 'question5', 'question6']
         widgets = {
             'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'フィードバックを入力してください'}),
         }

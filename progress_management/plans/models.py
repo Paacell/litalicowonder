@@ -30,7 +30,12 @@ class Task(models.Model):
 class Feedback(models.Model):
     game_plan = models.ForeignKey('GamePlan', on_delete=models.CASCADE, related_name='feedbacks', default=None, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=False, null=False)  # ユーザー情報を追加    game_plan = models.ForeignKey('GamePlan', on_delete=models.CASCADE, related_name='feedbacks')
-    content = models.TextField()
+    question1 = models.TextField(default="", blank=False, null=False)
+    question2 = models.TextField(default="", blank=False, null=False)
+    question3 = models.TextField(default="", blank=False, null=False)
+    question4 = models.TextField(default="", blank=False, null=False)
+    question5 = models.TextField(default="", blank=False, null=False)
+    question6 = models.TextField(default="", blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
